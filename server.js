@@ -5,11 +5,11 @@ require('./lib/mongodb')
 const app = express()
 require('dotenv').config()
 const session = require('express-session')
-const passport = require('./lib/passportConfig')
-// const cors = require('cors')
+// const passport = require('./lib/passportConfig')
+const cors = require('cors')
 
 //middlewares
-// app.use(cors())
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
@@ -45,7 +45,8 @@ app.use(express.static('public'))
 // app.use("/api", require('./routes/property.routes'))
 // app.use("/api/utilities", require('./routes/utilities.routes'))
 // app.use("/api/users", require('./routes/users.routes'))
-// app.use("/api/auth", require('./routes/auth.routes'))
+app.use("/auth", require('./routes/auth.routes'))
+app.use("/", require('./routes/dashboard.routes'))
 
 
 
