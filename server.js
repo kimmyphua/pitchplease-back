@@ -5,7 +5,7 @@ require('./lib/mongodb')
 const app = express()
 require('dotenv').config()
 const session = require('express-session')
-// const passport = require('./lib/passportConfig')
+const passport = require('./lib/passportConfig')
 const cors = require('cors')
 
 //middlewares
@@ -21,26 +21,25 @@ app.use(express.static('public'))
 // app.set('view engine', 'ejs')
 // app.use(expressLayouts)
 
-// app.use(session({
-//     secret: process.env.SECRET,
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: { maxAge: 360000}//cookie duration. needed to know cookie duration
-// }))
+app.use(session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 360000}//cookie duration. needed to know cookie duration
+}))
 
-// app.use(passport.initialize());
-// app.use(passport.session());
-
-
+app.use(passport.initialize());
+app.use(passport.session());
 
 
-// app.use(function(req, res, next){
-//     // console.log(req)
-//     //setting global variables for ejs
-//     res.locals.currentUser = req.user
 
-//     next()
-// })
+
+app.use(function(req, res, next){
+    // console.log(req)
+    //setting global variables for ejs
+    res.locals.currentUser = req.user
+    next()
+})
 
 // app.use("/api", require('./routes/property.routes'))
 // app.use("/api/utilities", require('./routes/utilities.routes'))
