@@ -34,10 +34,7 @@ const userSchema = new Schema({
         ref: 'Pitch'
     }],
     skills: [{type: String}],
-    favourites:[{
-        type: Schema.Types.ObjectId,
-        ref: 'Pitch'
-    }],
+    favourites:[{type: Object}],
     contact:  {type: Number},
 });
 

@@ -12,6 +12,8 @@ const
         selfintro: {type: String, required: true, minlength: 1, maxlength: 200},
         usp: {type: String, required: true, minlength: 1, maxlength: 200},
         goals: {type: String, required: true, minlength: 1, maxlength: 200},
+        color: {type: String,
+                default: 'beige'}
 
     })
 
