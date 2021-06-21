@@ -1,6 +1,7 @@
 const router = require("express").Router()
 const userModel = require("../models/user.model")
 const pitchModel = require("../models/pitch.model")
+const checkUser = require("../lib/check")
 
 router.get("/",async (req,res)=>{
     try{
@@ -55,13 +56,26 @@ router.delete("/delete/:id", async(req,res)=>{
     }
 })
 
-router.put("/edit/:id", async(req,res)=>{
+// router.put("/edit/:id", async(req,res)=>{
+//     try{
+//         await userModel.findByIdAndUpdate(req.body.id, {$push: { favourites: favourites }})
+//         await userModel.findByIdAndUpdate(req.params.id, req.body)
+//         res.status(200).json({"message":"updated user"})
+//     }catch (e) {
+//         res.status(400).json({"message":"fail to edit user"})
+//     }
+// })
+
+router.put("/edit/",checkUser, async(req,res)=>{
     try{
-        await userModel.findByIdAndUpdate(req.params.id, req.body)
+        let pitch = new pitchModel(req.body)
+        await userModel.findByIdAndUpdate(req.user.id, {$push: { favourites: pitch }})
         res.status(200).json({"message":"updated user"})
     }catch (e) {
         res.status(400).json({"message":"fail to edit user"})
     }
 })
+
+
 
 module.exports = router
