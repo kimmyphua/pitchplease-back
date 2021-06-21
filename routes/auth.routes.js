@@ -109,25 +109,25 @@ router.get('/logout', function (req, res) {
 // }
 
 
-// router.get('/facebook', passport.authenticate('facebook', {scope: 'email'}))
-//
-//
-// router.get('/facebook/callback',
-//
-//     passport.authenticate('facebook', {
-//         successRedirect: '/dashboard',
-//         failureRedirect: '/auth/login',
-//         failureFlash: false
-//     })
-//
-// );
+router.get('/facebook', passport.authenticate('facebook', {scope: 'email'}))
 
-router.get("/facebook", passport.authenticate("facebook"));
-router.get("/facebook/callback",
-    passport.authenticate("facebook"),
-    (req, res) => {
-        res.redirect("/");
-    });
+
+router.get('/facebook/callback',
+
+    passport.authenticate('facebook', {
+        successRedirect: '/dashboard',
+        failureRedirect: '/auth/login',
+        failureFlash: false
+    })
+
+);
+
+// router.get("/facebook", passport.authenticate("facebook"));
+// router.get("/facebook/callback",
+//     passport.authenticate("facebook"),
+//     (req, res) => {
+//         res.redirect("/");
+//     });
 
 
 

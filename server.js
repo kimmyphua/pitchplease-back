@@ -42,8 +42,8 @@ app.use(function(req, res, next){
 })
 
 // app.use("/api", require('./routes/property.routes'))
-// app.use("/api/utilities", require('./routes/utilities.routes'))
-// app.use("/api/users", require('./routes/users.routes'))
+app.use("/pitch", require('./routes/pitch.routes'))
+app.use("/user", require('./routes/user.routes'))
 app.use("/auth", require('./routes/auth.routes'))
 app.use("/", require('./routes/dashboard.routes'))
 

@@ -29,7 +29,16 @@ const userSchema = new Schema({
         default: 'jobseeker',
         enum: ['jobseeker', 'recruiter']
     },
-
+    pitches: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Pitch'
+    }],
+    skills: [{type: String}],
+    favourites:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Pitch'
+    }],
+    contact:  {type: Number},
 });
 
 userSchema.methods.validPassword = function(password){
