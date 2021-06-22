@@ -68,14 +68,25 @@ router.delete("/delete/:id", async(req,res)=>{
 
 router.put("/edit/",checkUser, async(req,res)=>{
     try{
+        console.log("id", req.body._id)
         let pitch = new pitchModel(req.body)
-        await userModel.findByIdAndUpdate(req.user.id, {$push: { favourites: pitch }})
-        res.status(200).json({"message":"updated user"})
+        await userModel.findByIdAndUpdate(req.user.id, {$addToSet: { favourites: pitch }})
+        res.status(200).json({"message":"Faved Pitch"})
     }catch (e) {
         res.status(400).json({"message":"fail to edit user"})
     }
 })
 
+router.put("/editing/",checkUser, async(req,res)=>{
+    try{
+        // console.log("id", req.body._id)
+        let pitch = new pitchModel(req.body)
+        await userModel.findByIdAndUpdate(req.user.id, {$pull: { favourites: pitch }})
+        res.status(200).json({"message":"deleted pitch"})
+    }catch (e) {
+        res.status(400).json({"message":"fail to delete pitch"})
+    }
+})
 
 
 module.exports = router
