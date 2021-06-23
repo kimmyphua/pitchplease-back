@@ -17,12 +17,15 @@ router.get("/",async (req,res)=>{
 
 router.get("/:id", async(req,res)=>{
     try{
-        //get current folder
+
         let user = await userModel.findById(req.params.id)
             .populate({
                 path: 'pitches'
-            })
-
+            }).populate(
+                {
+                    path: 'favourites'
+                })
+        // console.log(user)
         res.status(200).json({user})
     }catch (e) {
         res.status(400).json({"message":"fail to find user"})
@@ -69,8 +72,7 @@ router.delete("/delete/:id", async(req,res)=>{
 router.put("/edit/",checkUser, async(req,res)=>{
     try{
         console.log("id", req.body._id)
-        let pitch = new pitchModel(req.body)
-        await userModel.findByIdAndUpdate(req.user.id, {$addToSet: { favourites: pitch }})
+        await userModel.findByIdAndUpdate(req.user.id, {$addToSet: { favourites: req.body._id }})
         res.status(200).json({"message":"Faved Pitch"})
     }catch (e) {
         res.status(400).json({"message":"fail to edit user"})
@@ -80,8 +82,8 @@ router.put("/edit/",checkUser, async(req,res)=>{
 router.put("/editing/",checkUser, async(req,res)=>{
     try{
         // console.log("id", req.body._id)
-        let pitch = new pitchModel(req.body)
-        await userModel.findByIdAndUpdate(req.user.id, {$pull: { favourites: pitch }})
+        console.log("id", req.body._id)
+        await userModel.findByIdAndUpdate(req.user.id, {$pull: { favourites: req.body._id }})
         res.status(200).json({"message":"deleted pitch"})
     }catch (e) {
         res.status(400).json({"message":"fail to delete pitch"})
