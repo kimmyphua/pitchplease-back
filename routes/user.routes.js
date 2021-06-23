@@ -79,6 +79,16 @@ router.put("/edit/",checkUser, async(req,res)=>{
     }
 })
 
+router.put("/messages/:id", async(req,res)=>{
+    try{
+        console.log("message", req.body)
+        await userModel.findByIdAndUpdate(req.params.id, {$push: { messages: req.body }})
+        res.status(200).json({"message":"sent message"})
+    }catch (e) {
+        res.status(400).json({"message":"fail to send message"})
+    }
+})
+
 router.put("/editing/",checkUser, async(req,res)=>{
     try{
         // console.log("id", req.body._id)

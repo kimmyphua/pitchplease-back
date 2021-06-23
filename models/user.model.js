@@ -39,6 +39,11 @@ const userSchema = new Schema({
         ref: 'Pitch'
     }],
     contact:  {type: Number},
+    messages: [{
+        sender: {type: String},
+        name: {type: String},
+        text: {type: String}}]
+
 });
 
 userSchema.methods.validPassword = function(password){
