@@ -1,6 +1,7 @@
 const router = require("express").Router()
 const userModel = require("../models/user.model")
 const pitchModel = require("../models/pitch.model")
+const checkUser = require("../lib/check")
 
 router.get("/",async (req,res)=>{
     try{
@@ -16,12 +17,15 @@ router.get("/",async (req,res)=>{
 
 router.get("/:id", async(req,res)=>{
     try{
-        //get current folder
+
         let user = await userModel.findById(req.params.id)
             .populate({
                 path: 'pitches'
-            })
-
+            }).populate(
+                {
+                    path: 'favourites'
+                })
+        // console.log(user)
         res.status(200).json({user})
     }catch (e) {
         res.status(400).json({"message":"fail to find user"})
@@ -55,13 +59,46 @@ router.delete("/delete/:id", async(req,res)=>{
     }
 })
 
-router.put("/edit/:id", async(req,res)=>{
+// router.put("/edit/:id", async(req,res)=>{
+//     try{
+//         await userModel.findByIdAndUpdate(req.body.id, {$push: { favourites: favourites }})
+//         await userModel.findByIdAndUpdate(req.params.id, req.body)
+//         res.status(200).json({"message":"updated user"})
+//     }catch (e) {
+//         res.status(400).json({"message":"fail to edit user"})
+//     }
+// })
+
+router.put("/edit/",checkUser, async(req,res)=>{
     try{
-        await userModel.findByIdAndUpdate(req.params.id, req.body)
-        res.status(200).json({"message":"updated user"})
+        console.log("id", req.body._id)
+        await userModel.findByIdAndUpdate(req.user.id, {$addToSet: { favourites: req.body._id }})
+        res.status(200).json({"message":"Faved Pitch"})
     }catch (e) {
         res.status(400).json({"message":"fail to edit user"})
     }
 })
+
+router.put("/messages/:id", async(req,res)=>{
+    try{
+        console.log("message", req.body)
+        await userModel.findByIdAndUpdate(req.params.id, {$push: { messages: req.body }})
+        res.status(200).json({"message":"sent message"})
+    }catch (e) {
+        res.status(400).json({"message":"fail to send message"})
+    }
+})
+
+router.put("/editing/",checkUser, async(req,res)=>{
+    try{
+        // console.log("id", req.body._id)
+        console.log("id", req.body._id)
+        await userModel.findByIdAndUpdate(req.user.id, {$pull: { favourites: req.body._id }})
+        res.status(200).json({"message":"deleted pitch"})
+    }catch (e) {
+        res.status(400).json({"message":"fail to delete pitch"})
+    }
+})
+
 
 module.exports = router

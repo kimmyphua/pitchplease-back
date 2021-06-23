@@ -8,10 +8,17 @@ const
             // required: true,
             ref: 'User'
         },
-        title:{type: String, required: true},
+        title: {type: String, required: true},
         selfintro: {type: String, required: true, minlength: 1, maxlength: 200},
         usp: {type: String, required: true, minlength: 1, maxlength: 200},
         goals: {type: String, required: true, minlength: 1, maxlength: 200},
+        color: {
+            type: String,
+            default: 'beige'
+        },
+        comments: [{
+            name: {type: String},
+            text: {type: String}}]
 
     })
 
