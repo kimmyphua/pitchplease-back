@@ -1,6 +1,7 @@
 const express = require('express')
-// const expressLayouts = require('express-ejs-layouts')
+
 const mongoose = require("mongoose");
+
 require('./lib/mongodb')
 const app = express()
 require('dotenv').config()
@@ -8,6 +9,7 @@ const session = require('express-session')
 const passport = require('./lib/passportConfig')
 const cors = require('cors')
 const path = require('path');
+
 
 //middlewares
 app.use(cors())
@@ -43,6 +45,7 @@ app.use(passport.session());
 // })
 
 
+
 app.use("/api/pitch", require('./routes/pitch.routes'))
 app.use("/api/user", require('./routes/user.routes'))
 app.use("/api/auth", require('./routes/auth.routes'))
@@ -51,6 +54,7 @@ app.use("/api", require('./routes/dashboard.routes'))
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
 });
+
 
 
 app.listen(process.env.PORT || 8000, () => console.log(`running on ${process.env.PORT}`))
