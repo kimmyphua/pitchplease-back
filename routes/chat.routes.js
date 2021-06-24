@@ -72,11 +72,19 @@ router.get('/get/conversationList', async (req, res) => {
 
 router.get('/get/conversation', async (req, res) => {
     const id = req.query.id
+<<<<<<< HEAD
     try {
+=======
+
+    try{
+>>>>>>> 3cdfafcc89d51f4cfe5c4ae319444a1c6f04694a
         await Chat.find({_id: id}, (err, data) => {
             if (err) {
                 res.status(500).send(err)
             } else {
+<<<<<<< HEAD
+=======
+
                 res.status(200).send(data)
             }
         })
@@ -85,6 +93,48 @@ router.get('/get/conversation', async (req, res) => {
     }
 })
 
+router.get('/get/conversationFromJS', async (req, res) => {
+    const id = req.query.id
+
+    try{
+        await Chat.find({jsId: id}, (err, data) => {
+            if (err) {
+                res.status(500).send(err)
+            } else {
+                console.log(data)
+>>>>>>> 3cdfafcc89d51f4cfe5c4ae319444a1c6f04694a
+                res.status(200).send(data)
+            }
+        })
+    } catch (e) {
+        res.status(500).json({message: "something went wrong"})
+    }
+})
+
+<<<<<<< HEAD
+=======
+router.get('/get/conversationFromRC', async (req, res) => {
+    const id = req.query.id
+
+    try{
+        await Chat.find({recId: id}, (err, data) => {
+            if (err) {
+                res.status(500).send(err)
+            } else {
+                console.log(data)
+                res.status(200).send(data)
+            }
+        })
+    } catch (e) {
+        res.status(500).json({message: "something went wrong"})
+    }
+})
+
+
+
+
+
+>>>>>>> 3cdfafcc89d51f4cfe5c4ae319444a1c6f04694a
 router.get('/get/lastMessage', async (req, res) => {
     const id = req.query.id
     try {

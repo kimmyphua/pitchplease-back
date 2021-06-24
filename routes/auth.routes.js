@@ -40,7 +40,8 @@ router.post('/register', async (req, res) => {
             res.status(201).json({token})
         }
     } catch (e) {
-        res.status(400).json({message: e})
+        console.log(e)
+        res.status(400).json({message: "something went wrong"})
     }
 
 })

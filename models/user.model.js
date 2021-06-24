@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 const {Schema} = require("mongoose");
 const bcrypt = require('bcrypt')
-const uniqueValidator = require('mongoose-unique-validator');
 
 const userSchema = new Schema({
     uid: String,
@@ -35,11 +34,18 @@ const userSchema = new Schema({
         ref: 'Pitch'
     }],
     skills: [{type: String}],
-    favourites:[{type: Object,
-     unique: true}],
+    favourites:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Pitch'
+    }],
     contact:  {type: Number},
+    messages: [{
+        sender: {type: String},
+        name: {type: String},
+        text: {type: String}}]
+
 });
-userSchema.plugin(uniqueValidator);
+
 userSchema.methods.validPassword = function(password){
     return bcrypt.compareSync(password, this.password)
 }

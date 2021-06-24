@@ -40,6 +40,10 @@ app.use(function(req, res, next){
     next()
 })
 
+<<<<<<< HEAD
+=======
+// app.use("/api", require('./routes/property.routes'))
+>>>>>>> 3cdfafcc89d51f4cfe5c4ae319444a1c6f04694a
 app.use("/chat", require('./routes/chat.routes'))
 app.use("/pitch", require('./routes/pitch.routes'))
 app.use("/user", require('./routes/user.routes'))
