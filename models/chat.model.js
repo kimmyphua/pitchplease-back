@@ -3,15 +3,16 @@ const Schema = mongoose.Schema;
 
 const chatSchema = new Schema({
     chatName: String,
+    jsId: String,
+    recId: String,
     conversation: [
         {
             message: String,
             timestamp: String,
             user: {
-                displayName: String,
+                name: String,
                 email: String,
-                photo: String,
-                uid: String
+                _id: String
             }
         }
     ]
