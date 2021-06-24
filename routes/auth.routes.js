@@ -6,7 +6,6 @@ require('dotenv').config()
 const checkUser = require("../lib/check")
 const passport = require('../lib/passportConfig')
 
-
 router.get('/user', checkUser, async (req, res) => {
     try {
         let user = await UserModel.findById(req.user.id, "-password")
