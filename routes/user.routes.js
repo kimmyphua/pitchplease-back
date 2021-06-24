@@ -32,22 +32,7 @@ router.get("/:id", async(req,res)=>{
     }
 })
 
-// router.post("/create", async(req,res)=>{
-//     try{
-//         // let user = await userModel.find()
-//         //             .populate({
-//         //                 path: 'pitches'
-//         //             })
-//
-//         let user = new userModel(req.body)
-//         await user.save()
-//
-//         res.status(201).json({ message:  "user saved", user})
-//     }catch (e) {
-//         console.log(e)
-//         res.status(400).json({message:"failed to create user"})
-//     }
-// })
+
 
 router.delete("/delete/:id", async(req,res)=>{
     try{
@@ -59,15 +44,7 @@ router.delete("/delete/:id", async(req,res)=>{
     }
 })
 
-// router.put("/edit/:id", async(req,res)=>{
-//     try{
-//         await userModel.findByIdAndUpdate(req.body.id, {$push: { favourites: favourites }})
-//         await userModel.findByIdAndUpdate(req.params.id, req.body)
-//         res.status(200).json({"message":"updated user"})
-//     }catch (e) {
-//         res.status(400).json({"message":"fail to edit user"})
-//     }
-// })
+
 
 router.put("/edit/",checkUser, async(req,res)=>{
     try{
@@ -85,6 +62,7 @@ router.put("/messages/:id", async(req,res)=>{
         await userModel.findByIdAndUpdate(req.params.id, {$push: { messages: req.body }})
         res.status(200).json({"message":"sent message"})
     }catch (e) {
+        console.log(e)
         res.status(400).json({"message":"fail to send message"})
     }
 })
