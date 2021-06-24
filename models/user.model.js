@@ -41,8 +41,12 @@ const userSchema = new Schema({
     contact:  {type: Number},
     messages: [{
         sender: {type: String},
+        title: {type: String},
+        pitchId: {type:String},
         name: {type: String},
-        text: {type: String}}]
+        text: {type: String},
+        time: {type: String}}
+        ]
 
 });
 
