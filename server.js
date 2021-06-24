@@ -48,4 +48,4 @@ app.use("/", require('./routes/dashboard.routes'))
 
 
 
-app.listen(process.env.PORT, () => console.log(`running on ${process.env.PORT}`))
+app.listen(process.env.PORT || 8000, () => console.log(`running on ${process.env.PORT}`))
