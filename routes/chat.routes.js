@@ -13,6 +13,7 @@ router.post('/new/conversation',  (req, res) => {
     const dbData = req.body
     try {
          Chat.create(dbData, (err, data) => {
+
             if (err) {
                 res.status(500).send(err)
             } else {
@@ -49,6 +50,7 @@ router.post('/first/message',  (req, res) => {
 router.post('/new/message',  (req, res) => {
     try{
          Chat.updateOne(
+
             {_id: req.query.id},
             {$push: {conversation: req.body}},
             (err, data) => {
@@ -143,10 +145,6 @@ router.get('/get/conversationFromRC', async (req, res) => {
         res.status(500).json({message: "something went wrong"})
     }
 })
-
-
-
-
 
 router.get('/get/lastMessage', async (req, res) => {
     const id = req.query.id

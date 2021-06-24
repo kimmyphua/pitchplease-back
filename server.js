@@ -1,6 +1,4 @@
 const express = require('express')
-const expressLayouts = require('express-ejs-layouts')
-const mongoose = require("mongoose");
 require('./lib/mongodb')
 const app = express()
 require('dotenv').config()
@@ -42,7 +40,6 @@ app.use(function(req, res, next){
     next()
 })
 
-// app.use("/api", require('./routes/property.routes'))
 app.use("/chat", require('./routes/chat.routes'))
 app.use("/pitch", require('./routes/pitch.routes'))
 app.use("/user", require('./routes/user.routes'))
