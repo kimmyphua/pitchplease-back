@@ -1,12 +1,11 @@
 const express = require('express')
-const expressLayouts = require('express-ejs-layouts')
-const mongoose = require("mongoose");
 require('./lib/mongodb')
 const app = express()
 require('dotenv').config()
 const session = require('express-session')
 const passport = require('./lib/passportConfig')
 const cors = require('cors')
+
 
 //middlewares
 app.use(cors())
@@ -41,7 +40,7 @@ app.use(function(req, res, next){
     next()
 })
 
-
+app.use("/chat", require('./routes/chat.routes'))
 app.use("/pitch", require('./routes/pitch.routes'))
 app.use("/user", require('./routes/user.routes'))
 app.use("/auth", require('./routes/auth.routes'))
