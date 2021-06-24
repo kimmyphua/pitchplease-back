@@ -10,10 +10,9 @@ const chatSchema = new Schema({
             message: String,
             timestamp: String,
             user: {
-                displayName: String,
+                name: String,
                 email: String,
-                photo: String,
-                uid: String
+                _id: String
             }
         }
     ]

@@ -9,10 +9,10 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.post('/new/conversation', async (req, res) => {
+router.post('/new/conversation',  (req, res) => {
     const dbData = req.body
     try {
-        await Chat.create(dbData, (err, data) => {
+         Chat.create(dbData, (err, data) => {
             if (err) {
                 res.status(500).send(err)
             } else {
@@ -24,9 +24,31 @@ router.post('/new/conversation', async (req, res) => {
     }
 })
 
-router.post('/new/message', async (req, res) => {
-    try {
-        await Chat.updateOne(
+router.post('/first/message',  (req, res) => {
+    try{
+        Chat.updateOne(
+            {_id: req.query.id},
+            {$push: {conversation: req.body, jsId: req.query.jsId, recId: req.query.recId}},
+            (err, data) => {
+                if (err) {
+                    console.log("Error sending message...")
+                    console.log(err)
+                    res.status(500).send(err)
+                } else {
+                    res.status(202).send(data)
+                    console.log("hello",req.body)
+                    console.log("data:",data)
+                }
+            })
+    } catch (e) {
+        res.status(400).json({message: e})
+    }
+
+})
+
+router.post('/new/message',  (req, res) => {
+    try{
+         Chat.updateOne(
             {_id: req.query.id},
             {$push: {conversation: req.body}},
             (err, data) => {
@@ -41,6 +63,7 @@ router.post('/new/message', async (req, res) => {
     } catch (e) {
         res.status(400).json({message: e})
     }
+
 })
 
 router.get('/get/conversationList', async (req, res) => {

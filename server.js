@@ -8,6 +8,7 @@ const session = require('express-session')
 const passport = require('./lib/passportConfig')
 const cors = require('cors')
 
+
 //middlewares
 app.use(cors())
 app.use(express.json())
