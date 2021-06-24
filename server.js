@@ -1,5 +1,5 @@
 const express = require('express')
-const expressLayouts = require('express-ejs-layouts')
+// const expressLayouts = require('express-ejs-layouts')
 const mongoose = require("mongoose");
 require('./lib/mongodb')
 const app = express()
