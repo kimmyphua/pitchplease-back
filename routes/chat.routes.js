@@ -32,6 +32,7 @@ router.post('/first/message',  (req, res) => {
             {$push: {conversation: req.body, jsId: req.query.jsId, recId: req.query.recId}},
             (err, data) => {
                 if (err) {
+                    console.log(data)
                     console.log("Error sending message...")
                     console.log(err)
                     res.status(500).send(err)
